@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+
+    <!--    external CSS library for provide pre-stylized HTML elements-->
+    <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+
+    <!--    implement CSS style here because contains only 2 classes-->
+    <style>
+        .error {
+            color: red;
+        }
+
+        .error-bd {
+            border-color: red !important;
+        }
+    </style>
+
+</head>
+<body>
+
+<form action="#" th:action="@{/add}" th:object="${book}" method="POST">
+
+    <h3 th:unless="${#strings.isEmpty(authorExceptionMessage)}" th:text="${authorExceptionMessage}" class="error"></h3>
+    <h3 th:unless="${#strings.isEmpty(isbnExceptionMessage)}" th:text="${isbnExceptionMessage}" class="error"></h3>
+
+    <label for="author_forename">Author</label>
+    <input type="text" th:field="*{author.forename}" id="author_forename" placeholder="Enter author forename"
+           th:errorclass="error-bd" th:classappend="${#strings.isEmpty(authorExceptionMessage)} ? '' : 'error-bd'">
+    <input type="text" th:field="*{author.surname}" id="author_surname" placeholder="Enter author surname"
+           th:errorclass="error-bd" th:classappend="${#strings.isEmpty(authorExceptionMessage)} ? '' : 'error-bd'">
+    <span th:if="${#fields.hasErrors('author.forename')}" th:errors="*{author.forename}" class="error"></span>
+    <span th:if="${#fields.hasErrors('author.surname')}" th:errors="*{author.surname}" class="error"></span>
+
+    <label for="title">Title</label>
+    <input type="text" th:field="*{title}" id="title" placeholder="Enter title" th:errorclass="error-bd">
+    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error"></span>
+
+    <label for="isbn">ISBN</label>
+    <input type="number" th:field="*{isbn}" id="isbn" placeholder="Enter ISBN" th:errorclass="error-bd"
+           th:classappend="${#strings.isEmpty(isbnExceptionMessage)} ? '' : 'error-bd'">
+    <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" class="error"></span>
+    <br><br>
+
+    <button type="submit">Add</button>
+</form>
+
+</body>
+</html>

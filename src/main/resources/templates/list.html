@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book list</title>
+
+    <!--    external CSS library for provide pre-stylized HTML elements-->
+    <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+</head>
+<body>
+
+<p th:if="${bookList.isEmpty()}" style="color: red">No records</p>
+<ul th:each="book: ${bookList}">
+    <li>
+        <h4 th:text="|Book *{book.id}|"></h4>
+        <p th:text="|author: *{book.author.forename} *{book.author.surname}|"></p>
+        <p th:text="|title: *{book.title}|"></p>
+        <p th:text="|ISBN: *{book.isbn}|"></p>
+    </li>
+    <br>
+</ul>
+
+<a th:href="@{/add}">Add new book</a>
+
+</body>
+</html>
